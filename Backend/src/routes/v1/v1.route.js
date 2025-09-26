@@ -1,4 +1,5 @@
 import express from 'express';
+
 import usersRouter from './users.route.js';
 
 const router = express.Router();

@@ -7,6 +7,7 @@ import apiRouter from './routes/v1/api.route.js';
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use('/api', apiRouter)
 app.get('/ping', (req, res) => {
   return res.status(StatusCodes.OK).json({
