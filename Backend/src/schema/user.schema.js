@@ -7,8 +7,9 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Email is required'],
       unique: [true, 'Email already exists'],
-      // eslint-disable-next-line no-useless-escape
+
       match: [
+        // eslint-disable-next-line no-useless-escape
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
         'Please fill a valid email address'
       ]
@@ -41,7 +42,6 @@ userSchema.pre('save', function saveUser(next) {
   const SALT = bcrypt.genSaltSync(9);
   const hashedPassword = bcrypt.hashSync(user.password, SALT);
   user.password = hashedPassword;
-  user.password = bcrypt.hashSync(user.password, SALT);
   user.avatar = `https://robohash.org/${user.username}`;
   next();
 });

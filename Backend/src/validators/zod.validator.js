@@ -11,8 +11,8 @@ export const validate = (schema) => {
       let explanation = [];
       let errorMessage = '';
       error.issues.forEach((key) => {
-        explanation.push(key.message);
-        errorMessage += ' : ' + key.message;
+        explanation.push(key.path[0] + ' ' + key.message);
+        errorMessage += ' : ' + key.path[0] + ' ' + key.message;
       });
       res.status(StatusCodes.BAD_REQUEST).json(
         customErrorResponse({
