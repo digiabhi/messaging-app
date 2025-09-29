@@ -7,14 +7,14 @@ export default defineConfig([
   {
     files: ['**/*.{js,mjs,cjs}'],
     plugins: {
-        js,
-        "simple-import-sort": simpleImportSort
+      js,
+      'simple-import-sort': simpleImportSort
     },
     extends: ['js/recommended'],
-      rules: {
-        "simple-import-sort/imports": "error",
-        "simple-import-sort/exports": "error",
-      },
+    rules: {
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error'
+    },
     languageOptions: { globals: globals.node }
   }
 ]);

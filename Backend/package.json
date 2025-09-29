@@ -4,10 +4,11 @@
   "description": "This is the backend for the messaging app.",
   "main": "index.js",
   "scripts": {
-    "start": "npm run lint:fix && npx nodemon src/index.js",
+    "start": "npm run lint:fix && npm run format && npx nodemon src/index.js",
     "format": "prettier --write .",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "dev": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
