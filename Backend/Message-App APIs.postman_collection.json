@@ -1,620 +1,598 @@
 {
-	"info": {
-		"_postman_id": "a9871af5-b274-4f20-a3b1-bea21516c8fc",
-		"name": "Message-App APIs",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "28452260"
-	},
-	"item": [
-		{
-			"name": "Ping Check",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
-		},
-		{
-			"name": "Sign up User",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {},
-						"requests": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "email",
-							"value": "test@admin.com",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "123456",
-							"type": "text"
-						},
-						{
-							"key": "username",
-							"value": "test",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "{{dev_server}}/api/v1/users/signup",
-					"host": [
-						"{{dev_server}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"users",
-						"signup"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Sign in User",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"const jsonResponse = pm.response.json();\r",
-							"pm.collectionVariables.set(\"authToken\", jsonResponse.data.token);"
-						],
-						"type": "text/javascript",
-						"packages": {},
-						"requests": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "email",
-							"value": "test@admin.com",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "123456",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "{{dev_server}}/api/v1/users/signin",
-					"host": [
-						"{{dev_server}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"users",
-						"signin"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get all users",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
-		},
-		{
-			"name": "Create Workspace",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {},
-						"requests": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "x-access-token",
-						"value": "{{authToken}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "name",
-							"value": "test workspace",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "{{dev_server}}/api/v1/workspaces",
-					"host": [
-						"{{dev_server}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"workspaces"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Workspace By User",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {},
-						"requests": {}
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-access-token",
-						"value": "{{authToken}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": []
-				},
-				"url": {
-					"raw": "{{dev_server}}/api/v1/workspaces",
-					"host": [
-						"{{dev_server}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"workspaces"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete Workspace",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {},
-						"requests": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "x-access-token",
-						"value": "{{authToken}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "name",
-							"value": "test workspace",
-							"type": "text",
-							"disabled": true
-						}
-					]
-				},
-				"url": {
-					"raw": "{{dev_server}}/api/v1/workspaces/68db7bc5ffb798f2de8ed760",
-					"host": [
-						"{{dev_server}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"workspaces",
-						"68db7bc5ffb798f2de8ed760"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Workspace By Id",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {},
-						"requests": {}
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-access-token",
-						"value": "{{authToken}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "name",
-							"value": "test workspace",
-							"type": "text",
-							"disabled": true
-						}
-					]
-				},
-				"url": {
-					"raw": "{{dev_server}}/api/v1/workspaces/68db81fb48c253dde59c5fc8",
-					"host": [
-						"{{dev_server}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"workspaces",
-						"68db81fb48c253dde59c5fc8"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Workspace By Join Code",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {},
-						"requests": {}
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-access-token",
-						"value": "{{authToken}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "name",
-							"value": "test workspace",
-							"type": "text",
-							"disabled": true
-						}
-					]
-				},
-				"url": {
-					"raw": "{{dev_server}}/api/v1/workspaces/join/6AC00E",
-					"host": [
-						"{{dev_server}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"workspaces",
-						"join",
-						"6AC00E"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update Workspace By Id",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {},
-						"requests": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "PUT",
-				"header": [
-					{
-						"key": "x-access-token",
-						"value": "{{authToken}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "name",
-							"value": "IT Team Workspace",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "{{dev_server}}/api/v1/workspaces/68db81fb48c253dde59c5fc8",
-					"host": [
-						"{{dev_server}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"workspaces",
-						"68db81fb48c253dde59c5fc8"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Add Member to workspace",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {},
-						"requests": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "PUT",
-				"header": [
-					{
-						"key": "x-access-token",
-						"value": "{{authToken}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "name",
-							"value": "IT Team Workspace",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "memberId",
-							"value": "68da375b6c05f662cfd7dbb9",
-							"type": "text"
-						},
-						{
-							"key": "role",
-							"value": "member",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "{{dev_server}}/api/v1/workspaces/68db9ad266b03f2b73838d66/members",
-					"host": [
-						"{{dev_server}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"workspaces",
-						"68db9ad266b03f2b73838d66",
-						"members"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Add Channel to workspace",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {},
-						"requests": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "PUT",
-				"header": [
-					{
-						"key": "x-access-token",
-						"value": "{{authToken}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "name",
-							"value": "IT Team Workspace",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "memberId",
-							"value": "68da375b6c05f662cfd7dbb9",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "role",
-							"value": "member",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "channelName",
-							"value": "development team",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "{{dev_server}}/api/v1/workspaces/68db81fb48c253dde59c5fc8/channels",
-					"host": [
-						"{{dev_server}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"workspaces",
-						"68db81fb48c253dde59c5fc8",
-						"channels"
-					]
-				}
-			},
-			"response": []
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"packages": {},
-				"requests": {},
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"packages": {},
-				"requests": {},
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"key": "dev_server",
-			"value": ""
-		},
-		{
-			"key": "authToken",
-			"value": ""
-		}
-	]
+  "info": {
+    "_postman_id": "a9871af5-b274-4f20-a3b1-bea21516c8fc",
+    "name": "Message-App APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "28452260"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": []
+    },
+    {
+      "name": "Workspace",
+      "item": []
+    },
+    {
+      "name": "Channel",
+      "item": []
+    },
+    {
+      "name": "Ping Check",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "Sign up User",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "email",
+              "value": "test@admin.com",
+              "type": "text"
+            },
+            {
+              "key": "password",
+              "value": "123456",
+              "type": "text"
+            },
+            {
+              "key": "username",
+              "value": "test",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{dev_server}}/api/v1/users/signup",
+          "host": ["{{dev_server}}"],
+          "path": ["api", "v1", "users", "signup"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Sign in User",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const jsonResponse = pm.response.json();\r",
+              "pm.collectionVariables.set(\"authToken\", jsonResponse.data.token);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "email",
+              "value": "test@admin.com",
+              "type": "text"
+            },
+            {
+              "key": "password",
+              "value": "123456",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{dev_server}}/api/v1/users/signin",
+          "host": ["{{dev_server}}"],
+          "path": ["api", "v1", "users", "signin"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get all users",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "Create Workspace",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-access-token",
+            "value": "{{authToken}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "name",
+              "value": "test workspace",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{dev_server}}/api/v1/workspaces",
+          "host": ["{{dev_server}}"],
+          "path": ["api", "v1", "workspaces"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Workspace By User",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-access-token",
+            "value": "{{authToken}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": []
+        },
+        "url": {
+          "raw": "{{dev_server}}/api/v1/workspaces",
+          "host": ["{{dev_server}}"],
+          "path": ["api", "v1", "workspaces"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Workspace",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "x-access-token",
+            "value": "{{authToken}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "name",
+              "value": "test workspace",
+              "type": "text",
+              "disabled": true
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{dev_server}}/api/v1/workspaces/68db7bc5ffb798f2de8ed760",
+          "host": ["{{dev_server}}"],
+          "path": ["api", "v1", "workspaces", "68db7bc5ffb798f2de8ed760"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Workspace By Id",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-access-token",
+            "value": "{{authToken}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "name",
+              "value": "test workspace",
+              "type": "text",
+              "disabled": true
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{dev_server}}/api/v1/workspaces/68db81fb48c253dde59c5fc8",
+          "host": ["{{dev_server}}"],
+          "path": ["api", "v1", "workspaces", "68db81fb48c253dde59c5fc8"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Workspace By Join Code",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-access-token",
+            "value": "{{authToken}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "name",
+              "value": "test workspace",
+              "type": "text",
+              "disabled": true
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{dev_server}}/api/v1/workspaces/join/6AC00E",
+          "host": ["{{dev_server}}"],
+          "path": ["api", "v1", "workspaces", "join", "6AC00E"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Workspace By Id",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "x-access-token",
+            "value": "{{authToken}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "name",
+              "value": "IT Team Workspace",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{dev_server}}/api/v1/workspaces/68db81fb48c253dde59c5fc8",
+          "host": ["{{dev_server}}"],
+          "path": ["api", "v1", "workspaces", "68db81fb48c253dde59c5fc8"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add Member to workspace",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "x-access-token",
+            "value": "{{authToken}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "name",
+              "value": "IT Team Workspace",
+              "type": "text",
+              "disabled": true
+            },
+            {
+              "key": "memberId",
+              "value": "68da375b6c05f662cfd7dbb9",
+              "type": "text"
+            },
+            {
+              "key": "role",
+              "value": "member",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{dev_server}}/api/v1/workspaces/68db9ad266b03f2b73838d66/members",
+          "host": ["{{dev_server}}"],
+          "path": [
+            "api",
+            "v1",
+            "workspaces",
+            "68db9ad266b03f2b73838d66",
+            "members"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add Channel to workspace",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "x-access-token",
+            "value": "{{authToken}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "name",
+              "value": "IT Team Workspace",
+              "type": "text",
+              "disabled": true
+            },
+            {
+              "key": "memberId",
+              "value": "68da375b6c05f662cfd7dbb9",
+              "type": "text",
+              "disabled": true
+            },
+            {
+              "key": "role",
+              "value": "member",
+              "type": "text",
+              "disabled": true
+            },
+            {
+              "key": "channelName",
+              "value": "development team",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{dev_server}}/api/v1/workspaces/68db81fb48c253dde59c5fc8/channels",
+          "host": ["{{dev_server}}"],
+          "path": [
+            "api",
+            "v1",
+            "workspaces",
+            "68db81fb48c253dde59c5fc8",
+            "channels"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Channel By Id",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-access-token",
+            "value": "{{authToken}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "name",
+              "value": "test workspace",
+              "type": "text",
+              "disabled": true
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{dev_server}}/api/v1/channels/68dba9c93468143c3b779285",
+          "host": ["{{dev_server}}"],
+          "path": ["api", "v1", "channels", "68dba9c93468143c3b779285"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "dev_server",
+      "value": ""
+    },
+    {
+      "key": "authToken",
+      "value": ""
+    }
+  ]
 }

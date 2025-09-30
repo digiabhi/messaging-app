@@ -1,107 +1,118 @@
+import { StatusCodes } from 'http-status-codes';
+
+import User from '../schema/user.schema.js';
+import Workspace from '../schema/workspace.schema.js';
+import ClientError from '../utils/errors/client.error.js';
+import channelRepository from './channel.repository.js';
 import crudRepository from './crud.repository.js';
-import Workspace from "../schema/workspace.schema.js";
-import ClientError from "../utils/errors/client.error.js";
-import {StatusCodes} from "http-status-codes";
-import User from "../schema/user.schema.js";
-import channelRepository from "./channel.repository.js";
 
 const workspaceRepository = {
   ...crudRepository(Workspace),
-    getWorkspaceDetailsById: async function(workspaceId) {
-      const workspace = await Workspace.findById(workspaceId).populate('members.memberId', 'username email avatar').populate('channels', 'name');
-      if(!workspace){
-          throw new ClientError({
-              explanation: 'Invalid data sent from the client',
-              message: 'Workspace Not Found',
-              statusCode: StatusCodes.NOT_FOUND
-          });
-      }
-      return workspace;
-    },
-    getWorkspaceByName: async function(workspaceName) {
-      const workspace = await Workspace.findOne({ name: workspaceName });
-      if(!workspace){
-          throw new ClientError({
-              explanation: 'Invalid data sent from the client',
-              message: 'Workspace Not Found',
-              statusCode: StatusCodes.NOT_FOUND
-          });
-      }
-      return workspace;
-    },
-    getWorkspaceByJoinCode: async function(joinCode) {
-        const workspace = await Workspace.findOne({ joinCode });
-        if(!workspace){
-            throw new ClientError({
-                explanation: 'Invalid data sent from the client',
-                message: 'Workspace Not Found',
-                statusCode: StatusCodes.NOT_FOUND
-            });
-        }
-        return workspace;
-    },
-    addMemberToWorkspace: async function(workspaceId, memberId, role) {
-      const workspace = await Workspace.findById(workspaceId);
-      if(!workspace){
-          throw new ClientError({
-              explanation: 'Invalid data sent from the client',
-              message: 'Workspace Not Found',
-              statusCode: StatusCodes.NOT_FOUND
-          });
-      }
-      const isValidUser = await User.findById(memberId);
+  getWorkspaceDetailsById: async function (workspaceId) {
+    const workspace = await Workspace.findById(workspaceId)
+      .populate('members.memberId', 'username email avatar')
+      .populate('channels', 'name');
+    if (!workspace) {
+      throw new ClientError({
+        explanation: 'Invalid data sent from the client',
+        message: 'Workspace Not Found',
+        statusCode: StatusCodes.NOT_FOUND
+      });
+    }
+    return workspace;
+  },
+  getWorkspaceByName: async function (workspaceName) {
+    const workspace = await Workspace.findOne({ name: workspaceName });
+    if (!workspace) {
+      throw new ClientError({
+        explanation: 'Invalid data sent from the client',
+        message: 'Workspace Not Found',
+        statusCode: StatusCodes.NOT_FOUND
+      });
+    }
+    return workspace;
+  },
+  getWorkspaceByJoinCode: async function (joinCode) {
+    const workspace = await Workspace.findOne({ joinCode });
+    if (!workspace) {
+      throw new ClientError({
+        explanation: 'Invalid data sent from the client',
+        message: 'Workspace Not Found',
+        statusCode: StatusCodes.NOT_FOUND
+      });
+    }
+    return workspace;
+  },
+  addMemberToWorkspace: async function (workspaceId, memberId, role) {
+    const workspace = await Workspace.findById(workspaceId);
+    if (!workspace) {
+      throw new ClientError({
+        explanation: 'Invalid data sent from the client',
+        message: 'Workspace Not Found',
+        statusCode: StatusCodes.NOT_FOUND
+      });
+    }
+    const isValidUser = await User.findById(memberId);
 
-      if(!isValidUser){
-          throw new ClientError({
-              explanation: 'Invalid data sent from the client',
-              message: 'User Not Found',
-              statusCode: StatusCodes.NOT_FOUND
-          })
-      }
+    if (!isValidUser) {
+      throw new ClientError({
+        explanation: 'Invalid data sent from the client',
+        message: 'User Not Found',
+        statusCode: StatusCodes.NOT_FOUND
+      });
+    }
 
-      const isMemberAlreadyPartOfWorkspace = workspace.members.find(member => member.memberId.toString() === memberId.toString());
+    const isMemberAlreadyPartOfWorkspace = workspace.members.find(
+      (member) => member.memberId.toString() === memberId.toString()
+    );
 
-      if(isMemberAlreadyPartOfWorkspace){
-          throw new ClientError({
-              explanation: 'Invalid data sent from the client',
-              message: 'User already part of workspace',
-              statusCode: StatusCodes.FORBIDDEN
-          });
-      }
+    if (isMemberAlreadyPartOfWorkspace) {
+      throw new ClientError({
+        explanation: 'Invalid data sent from the client',
+        message: 'User already part of workspace',
+        statusCode: StatusCodes.FORBIDDEN
+      });
+    }
 
-      workspace.members.push({ memberId, role });
-      await workspace.save();
-      return workspace;
-    },
-    addChannelToWorkspace: async function(workspaceId, channelName) {
-      const workspace = await Workspace.findById(workspaceId).populate('channels');
-      if(!workspace){
-          throw new ClientError({
-              explanation: 'Invalid data sent from the client',
-              message: 'Workspace Not Found',
-              statusCode: StatusCodes.NOT_FOUND
-          });
-      }
+    workspace.members.push({ memberId, role });
+    await workspace.save();
+    return workspace;
+  },
+  addChannelToWorkspace: async function (workspaceId, channelName) {
+    const workspace =
+      await Workspace.findById(workspaceId).populate('channels');
+    if (!workspace) {
+      throw new ClientError({
+        explanation: 'Invalid data sent from the client',
+        message: 'Workspace Not Found',
+        statusCode: StatusCodes.NOT_FOUND
+      });
+    }
 
-      const isChannelAlreadyPartOfWorkspace = workspace.channels.find(channel => channel.name === channelName);
-      if(isChannelAlreadyPartOfWorkspace){
-          throw new ClientError({
-              explanation: 'Invalid data sent from the client',
-              message: 'Channel already part of workspace',
-              statusCode: StatusCodes.FORBIDDEN
-          });
-      }
-      const channel = await channelRepository.create({ name: channelName, workspaceId });
-      workspace.channels.push(channel);
+    const isChannelAlreadyPartOfWorkspace = workspace.channels.find(
+      (channel) => channel.name === channelName
+    );
+    if (isChannelAlreadyPartOfWorkspace) {
+      throw new ClientError({
+        explanation: 'Invalid data sent from the client',
+        message: 'Channel already part of workspace',
+        statusCode: StatusCodes.FORBIDDEN
+      });
+    }
+    const channel = await channelRepository.create({
+      name: channelName,
+      workspaceId
+    });
+    workspace.channels.push(channel);
 
-      return workspace;
-    },
-    fetchAllWorkspaceByMemberId: async function(memberId) {
-      const workspaces = await Workspace.find({
-          'members.memberId': memberId
-      }).populate('members.memberId', 'username email avatar');
-      return workspaces;
-    },
+    return workspace;
+  },
+  fetchAllWorkspaceByMemberId: async function (memberId) {
+    const workspaces = await Workspace.find({
+      'members.memberId': memberId
+    }).populate('members.memberId', 'username email avatar');
+    return workspaces;
+  }
 };
 
 export default workspaceRepository;

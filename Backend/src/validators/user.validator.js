@@ -28,10 +28,6 @@ export const userSignUpSchema = z.object({
 });
 
 export const userSignInSchema = z.object({
-    email: z
-        .string()
-        .trim()
-        .email(),
-    password: z
-        .string()
-})
+  email: z.string().trim().email(),
+  password: z.string()
+});
